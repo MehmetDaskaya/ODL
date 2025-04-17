@@ -1,0 +1,1272 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>How to Create a Strong Password | Security Learning Module</title>
+    <style>
+      :root {
+        --primary: #3a86ff;
+        --primary-dark: #2667cc;
+        --secondary: #ff006e;
+        --success: #38b000;
+        --warning: #ffbe0b;
+        --danger: #ff5400;
+        --light: #f8f9fa;
+        --dark: #212529;
+        --gray: #6c757d;
+        --light-gray: #e9ecef;
+        --font-main: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: var(--font-main);
+        line-height: 1.6;
+        color: var(--dark);
+        background-color: #f5f7fa;
+        overflow-x: hidden;
+      }
+
+      .container {
+        width: 100%;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 1rem;
+      }
+
+      header {
+        background-color: var(--primary);
+        color: white;
+        padding: 1.5rem 0;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      }
+
+      header h1 {
+        text-align: center;
+        font-size: 2.2rem;
+        margin-bottom: 0.5rem;
+      }
+
+      header p {
+        text-align: center;
+        font-size: 1.1rem;
+        opacity: 0.9;
+      }
+
+      nav {
+        background-color: white;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        position: sticky;
+        top: 0;
+        z-index: 100;
+      }
+
+      .nav-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0.5rem 1rem;
+      }
+
+      .nav-brand {
+        font-weight: bold;
+        color: var(--primary);
+        text-decoration: none;
+        font-size: 1.2rem;
+        display: flex;
+        align-items: center;
+      }
+
+      .nav-brand i {
+        margin-right: 0.5rem;
+        font-size: 1.4rem;
+      }
+
+      .progress-container {
+        width: 50%;
+        height: 8px;
+        background-color: var(--light-gray);
+        border-radius: 4px;
+        overflow: hidden;
+      }
+
+      .progress-bar {
+        height: 100%;
+        background-color: var(--primary);
+        width: 0%;
+        transition: width 0.3s ease;
+      }
+
+      main {
+        padding: 2rem 0;
+      }
+
+      section {
+        background-color: white;
+        border-radius: 8px;
+        padding: 2rem;
+        margin-bottom: 2rem;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        display: none;
+      }
+
+      .active-section {
+        display: block;
+        animation: fadeIn 0.5s;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      h2 {
+        color: var(--primary);
+        margin-bottom: 1rem;
+        font-size: 1.8rem;
+        border-bottom: 2px solid var(--light-gray);
+        padding-bottom: 0.5rem;
+      }
+
+      h3 {
+        color: var(--dark);
+        margin: 1.5rem 0 0.5rem;
+        font-size: 1.4rem;
+      }
+
+      p {
+        margin-bottom: 1rem;
+      }
+
+      .alert {
+        padding: 1rem;
+        border-radius: 4px;
+        margin: 1rem 0;
+        display: flex;
+        align-items: center;
+      }
+
+      .alert-danger {
+        background-color: rgba(255, 84, 0, 0.1);
+        border-left: 4px solid var(--danger);
+        color: var(--danger);
+      }
+
+      .alert-warning {
+        background-color: rgba(255, 190, 11, 0.1);
+        border-left: 4px solid var(--warning);
+        color: var(--dark);
+      }
+
+      .alert-success {
+        background-color: rgba(56, 176, 0, 0.1);
+        border-left: 4px solid var(--success);
+        color: var(--success);
+      }
+
+      .alert i {
+        margin-right: 0.5rem;
+        font-size: 1.2rem;
+      }
+
+      .card {
+        border: 1px solid var(--light-gray);
+        border-radius: 4px;
+        padding: 1rem;
+        margin: 1rem 0;
+      }
+
+      .card-title {
+        font-weight: bold;
+        margin-bottom: 0.5rem;
+        color: var(--primary);
+      }
+
+      .flex-row {
+        display: flex;
+        flex-wrap: wrap;
+        margin: 1rem -0.5rem;
+      }
+
+      .flex-col {
+        flex: 1;
+        padding: 0 0.5rem;
+        min-width: 280px;
+        margin-bottom: 1rem;
+      }
+
+      .comparison-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 1rem 0;
+      }
+
+      .comparison-table th,
+      .comparison-table td {
+        padding: 0.75rem;
+        text-align: left;
+        border-bottom: 1px solid var(--light-gray);
+      }
+
+      .comparison-table th {
+        background-color: var(--light-gray);
+        font-weight: bold;
+      }
+
+      .bad {
+        color: var(--danger);
+      }
+
+      .good {
+        color: var(--success);
+      }
+
+      .password-meter-container {
+        margin: 2rem 0;
+      }
+
+      .password-input-group {
+        position: relative;
+        margin-bottom: 1rem;
+      }
+
+      .password-input {
+        width: 100%;
+        padding: 0.75rem;
+        border: 2px solid var(--light-gray);
+        border-radius: 4px;
+        font-size: 1rem;
+        transition: border-color 0.3s;
+      }
+
+      .password-input:focus {
+        outline: none;
+        border-color: var(--primary);
+      }
+
+      .toggle-password {
+        position: absolute;
+        right: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+        background: none;
+        border: none;
+        cursor: pointer;
+        color: var(--gray);
+      }
+
+      .password-strength-meter {
+        height: 8px;
+        background-color: var(--light-gray);
+        border-radius: 4px;
+        margin-bottom: 1rem;
+        overflow: hidden;
+      }
+
+      .password-strength-fill {
+        height: 100%;
+        width: 0%;
+        transition: width 0.3s ease, background-color 0.3s ease;
+      }
+
+      .password-feedback {
+        padding: 1rem;
+        border-radius: 4px;
+        display: none;
+      }
+
+      .feedback-weak {
+        background-color: rgba(255, 84, 0, 0.1);
+        border-left: 4px solid var(--danger);
+        color: var(--danger);
+      }
+
+      .feedback-medium {
+        background-color: rgba(255, 190, 11, 0.1);
+        border-left: 4px solid var(--warning);
+        color: var(--dark);
+      }
+
+      .feedback-strong {
+        background-color: rgba(56, 176, 0, 0.1);
+        border-left: 4px solid var(--success);
+        color: var(--success);
+      }
+
+      .password-tips {
+        list-style-type: none;
+        margin: 1rem 0;
+      }
+
+      .password-tips li {
+        margin-bottom: 0.5rem;
+        display: flex;
+        align-items: flex-start;
+      }
+
+      .password-tips i {
+        margin-right: 0.5rem;
+        font-size: 1rem;
+      }
+
+      .fulfilled {
+        color: var(--success);
+      }
+
+      .not-fulfilled {
+        color: var(--gray);
+      }
+
+      .password-generator {
+        margin: 2rem 0;
+      }
+
+      .form-group {
+        margin-bottom: 1.5rem;
+      }
+
+      .form-label {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-weight: bold;
+      }
+
+      .form-control {
+        width: 100%;
+        padding: 0.75rem;
+        border: 2px solid var(--light-gray);
+        border-radius: 4px;
+        font-size: 1rem;
+        transition: border-color 0.3s;
+      }
+
+      .form-control:focus {
+        outline: none;
+        border-color: var(--primary);
+      }
+
+      .form-check {
+        display: flex;
+        align-items: center;
+        margin-bottom: 0.5rem;
+      }
+
+      .form-check-input {
+        margin-right: 0.5rem;
+      }
+
+      .btn {
+        display: inline-block;
+        padding: 0.75rem 1.5rem;
+        border-radius: 4px;
+        font-size: 1rem;
+        text-align: center;
+        text-decoration: none;
+        cursor: pointer;
+        transition: background-color 0.3s, transform 0.1s;
+        border: none;
+        margin-right: 0.5rem;
+        margin-bottom: 0.5rem;
+      }
+
+      .btn:active {
+        transform: translateY(1px);
+      }
+
+      .btn-primary {
+        background-color: var(--primary);
+        color: white;
+      }
+
+      .btn-primary:hover {
+        background-color: var(--primary-dark);
+      }
+
+      .btn-secondary {
+        background-color: var(--light-gray);
+        color: var(--dark);
+      }
+
+      .btn-secondary:hover {
+        background-color: #d8dde2;
+      }
+
+      .btn-success {
+        background-color: var(--success);
+        color: white;
+      }
+
+      .btn-success:hover {
+        background-color: #2d9600;
+      }
+
+      .btn-block {
+        display: block;
+        width: 100%;
+      }
+
+      .navigation-buttons {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 2rem;
+      }
+
+      .quiz-container {
+        margin: 2rem 0;
+      }
+
+      .quiz-question {
+        background-color: var(--light);
+        padding: 1rem;
+        border-radius: 4px;
+        margin-bottom: 1.5rem;
+      }
+
+      .quiz-options {
+        list-style-type: none;
+        padding: 0;
+      }
+
+      .quiz-option {
+        padding: 0.75rem;
+        border: 1px solid var(--light-gray);
+        border-radius: 4px;
+        margin-bottom: 0.5rem;
+        cursor: pointer;
+        transition: background-color 0.3s;
+      }
+
+      .quiz-option:hover {
+        background-color: var(--light);
+      }
+
+      .quiz-option.selected {
+        background-color: var(--primary);
+        color: white;
+        border-color: var(--primary);
+      }
+
+      .quiz-option.correct {
+        background-color: var(--success);
+        color: white;
+        border-color: var(--success);
+      }
+
+      .quiz-option.incorrect {
+        background-color: var(--danger);
+        color: white;
+        border-color: var(--danger);
+      }
+
+      .quiz-feedback {
+        margin-top: 1rem;
+        padding: 1rem;
+        border-radius: 4px;
+        display: none;
+      }
+
+      .quiz-result {
+        text-align: center;
+        padding: 2rem;
+        margin-top: 2rem;
+        background-color: var(--light);
+        border-radius: 4px;
+      }
+
+      .quiz-score {
+        font-size: 2rem;
+        font-weight: bold;
+        color: var(--primary);
+        margin: 1rem 0;
+      }
+
+      .certificate {
+        max-width: 600px;
+        margin: 2rem auto;
+        padding: 2rem;
+        border: 5px solid var(--primary);
+        border-radius: 10px;
+        background-color: white;
+        text-align: center;
+      }
+
+      .certificate-title {
+        font-size: 2rem;
+        color: var(--primary);
+        margin-bottom: 1rem;
+      }
+
+      .certificate-subtitle {
+        font-size: 1.2rem;
+        margin-bottom: 2rem;
+        color: var(--gray);
+      }
+
+      .certificate-content {
+        margin: 2rem 0;
+      }
+
+      .certificate-name {
+        font-size: 1.5rem;
+        font-weight: bold;
+        margin: 1rem 0;
+      }
+
+      .certificate-date {
+        margin-top: 2rem;
+        color: var(--gray);
+      }
+
+      .summary-checklist {
+        list-style-type: none;
+        margin: 1rem 0;
+      }
+
+      .summary-checklist li {
+        display: flex;
+        align-items: flex-start;
+        margin-bottom: 1rem;
+        background-color: var(--light);
+        padding: 1rem;
+        border-radius: 4px;
+      }
+
+      .summary-checklist i {
+        color: var(--success);
+        margin-right: 0.5rem;
+        font-size: 1.2rem;
+      }
+
+      .checklist-title {
+        font-weight: bold;
+        margin-bottom: 0.25rem;
+      }
+
+      .print-btn {
+        margin-top: 1rem;
+      }
+
+      footer {
+        background-color: var(--dark);
+        color: white;
+        padding: 2rem 0;
+        text-align: center;
+      }
+
+      .footer-content {
+        margin-bottom: 1rem;
+      }
+
+      .footer-links {
+        list-style-type: none;
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+
+      .footer-links li {
+        margin: 0 1rem;
+      }
+
+      .footer-links a {
+        color: var(--light);
+        text-decoration: none;
+      }
+
+      .footer-links a:hover {
+        text-decoration: underline;
+      }
+
+      @media (max-width: 768px) {
+        .nav-container {
+          flex-direction: column;
+          padding: 1rem;
+        }
+
+        .progress-container {
+          width: 100%;
+          margin-top: 1rem;
+        }
+
+        .navigation-buttons {
+          flex-direction: column;
+        }
+
+        .navigation-buttons .btn {
+          margin-bottom: 0.5rem;
+          width: 100%;
+        }
+      }
+
+      .welcome-animation {
+        text-align: center;
+        padding: 2rem 0;
+      }
+
+      .welcome-icon {
+        font-size: 4rem;
+        color: var(--primary);
+        display: inline-block;
+        animation: pulse 2s infinite;
+      }
+
+      @keyframes pulse {
+        0% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.1);
+        }
+        100% {
+          transform: scale(1);
+        }
+      }
+
+      .toast {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        background-color: var(--dark);
+        color: white;
+        padding: 1rem;
+        border-radius: 4px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        z-index: 1000;
+        display: none;
+        animation: slideIn 0.3s;
+      }
+
+      @keyframes slideIn {
+        from {
+          transform: translateY(100%);
+          opacity: 0;
+        }
+        to {
+          transform: translateY(0);
+          opacity: 1;
+        }
+      }
+
+      /* Print Styles */
+      @media print {
+        nav,
+        .navigation-buttons,
+        footer,
+        .print-btn {
+          display: none !important;
+        }
+
+        body,
+        .container {
+          padding: 0;
+          margin: 0;
+        }
+
+        .certificate {
+          border: 2px solid #000;
+          max-width: 100%;
+          height: 100vh;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+        }
+
+        .summary-checklist {
+          page-break-inside: avoid;
+        }
+      }
+    </style>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+  </head>
+  <body>
+    <header>
+      <div class="container">
+        <h1>
+          <i class="fas fa-shield-alt"></i> How to Create a Strong Password
+        </h1>
+        <p>Learn to create passwords that are both secure and memorable</p>
+      </div>
+    </header>
+
+    <nav>
+      <div class="container nav-container">
+        <a href="#" class="nav-brand"
+          ><i class="fas fa-lock"></i> Password Security</a
+        >
+        <div class="progress-container">
+          <div class="progress-bar" id="progressBar"></div>
+        </div>
+      </div>
+    </nav>
+
+    <main class="container">
+      <!-- Section 1: Introduction -->
+      <section id="section-intro" class="active-section">
+        <div class="welcome-animation">
+          <i class="fas fa-key welcome-icon"></i>
+        </div>
+        <h2>Welcome to Password Security Basics</h2>
+        <p>
+          In today's digital world, a strong password is your first line of
+          defense against cyber threats. This interactive module will guide you
+          through creating passwords that are both
+          <strong>secure and memorable</strong>.
+        </p>
+
+        <div class="alert alert-danger">
+          <i class="fas fa-exclamation-triangle"></i>
+          <div>
+            <strong>Did you know?</strong> Over 80% of data breaches are caused
+            by weak or stolen passwords.
+          </div>
+        </div>
+
+        <h3>Why Password Security Matters</h3>
+        <div class="flex-row">
+          <div class="flex-col">
+            <div class="card">
+              <div class="card-title">
+                <i class="fas fa-user-secret"></i> Identity Theft
+              </div>
+              <p>
+                Weak passwords can lead to your personal information being
+                stolen, resulting in financial loss and damage to your
+                reputation.
+              </p>
+            </div>
+          </div>
+          <div class="flex-col">
+            <div class="card">
+              <div class="card-title">
+                <i class="fas fa-money-bill-wave"></i> Financial Loss
+              </div>
+              <p>
+                Hackers can gain access to your bank accounts, credit cards, and
+                other financial services through compromised passwords.
+              </p>
+            </div>
+          </div>
+          <div class="flex-col">
+            <div class="card">
+              <div class="card-title">
+                <i class="fas fa-users"></i> Social Engineering
+              </div>
+              <p>
+                Access to one account can lead to compromised security across
+                multiple platforms due to password reuse.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <p>By the end of this module, you will be able to:</p>
+        <ul>
+          <li>Understand what makes a password strong or weak</li>
+          <li>Use techniques to create memorable yet secure passwords</li>
+          <li>Test the strength of your passwords</li>
+          <li>Apply best practices for password management</li>
+        </ul>
+
+        <div class="navigation-buttons">
+          <button class="btn btn-secondary" disabled>Previous</button>
+          <button
+            class="btn btn-primary next-btn"
+            data-next="section-characteristics"
+          >
+            Next: Password Characteristics
+          </button>
+        </div>
+      </section>
+
+      <!-- Section 2: Characteristics -->
+      <section id="section-characteristics">
+        <h2>Characteristics of a Strong Password</h2>
+        <p>
+          A strong password is the foundation of your digital security. Let's
+          explore what makes a password strong and how to avoid common pitfalls.
+        </p>
+
+        <h3>Password Strength Factors</h3>
+        <div class="flex-row">
+          <div class="flex-col">
+            <div class="card">
+              <div class="card-title"><i class="fas fa-ruler"></i> Length</div>
+              <p>
+                At least 12 characters long. Longer passwords are exponentially
+                harder to crack.
+              </p>
+            </div>
+          </div>
+          <div class="flex-col">
+            <div class="card">
+              <div class="card-title">
+                <i class="fas fa-random"></i> Complexity
+              </div>
+              <p>
+                Mix of uppercase, lowercase, numbers, and special characters
+                (e.g., !@#$%)
+              </p>
+            </div>
+          </div>
+          <div class="flex-col">
+            <div class="card">
+              <div class="card-title">
+                <i class="fas fa-fingerprint"></i> Uniqueness
+              </div>
+              <p>
+                Different for each account and not based on obvious personal
+                information
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <h3>Weak vs. Strong Passwords</h3>
+        <table class="comparison-table">
+          <thead>
+            <tr>
+              <th>Weak Password Examples</th>
+              <th>Why It's Weak</th>
+              <th>Strong Alternative</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="bad">password123</td>
+              <td>Common word with predictable numbers</td>
+              <td class="good">P@$$w0rd-123-XyZ!</td>
+            </tr>
+            <tr>
+              <td class="bad">qwerty</td>
+              <td>Keyboard pattern, extremely common</td>
+              <td class="good">Qw3r+y-7p0!nTs</td>
+            </tr>
+            <tr>
+              <td class="bad">john1990</td>
+              <td>Name with birth year, personal info</td>
+              <td class="good">J0hn*19-90!pLuS</td>
+            </tr>
+            <tr>
+              <td class="bad">iloveyou</td>
+              <td>Common phrase, easily guessable</td>
+              <td class="good">1L0v3_Y0u-2mUcH!</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="alert alert-warning">
+          <i class="fas fa-info-circle"></i>
+          <div>
+            <strong>Important:</strong> Even strong passwords can be compromised
+            if:
+            <ul>
+              <li>You use the same password across multiple sites</li>
+              <li>You share your password with others</li>
+              <li>
+                You enter your password on unsecured websites (those without
+                HTTPS)
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <h3>Password Don'ts</h3>
+        <ul>
+          <li>
+            <strong>Don't use</strong> personal information (birthdates, names,
+            addresses)
+          </li>
+          <li>
+            <strong>Don't use</strong> sequential numbers or letters (123456,
+            abcdef)
+          </li>
+          <li>
+            <strong>Don't use</strong> the same password for multiple accounts
+          </li>
+          <li><strong>Don't share</strong> your passwords with others</li>
+          <li>
+            <strong>Don't store</strong> passwords in plain text on your device
+          </li>
+        </ul>
+
+        <div class="navigation-buttons">
+          <button class="btn btn-secondary prev-btn" data-prev="section-intro">
+            Previous
+          </button>
+          <button class="btn btn-primary next-btn" data-next="section-checker">
+            Next: Password Strength Checker
+          </button>
+        </div>
+      </section>
+
+      <!-- Section 3: Password Strength Checker -->
+      <section id="section-checker">
+        <h2>Password Strength Checker</h2>
+        <p>
+          Enter a password below to check its strength. This tool will analyze
+          your password and provide feedback on how to improve it.
+        </p>
+        <p>
+          <strong>Note:</strong> This tool works entirely in your browser and
+          does not send your password anywhere.
+        </p>
+
+        <div class="password-meter-container">
+          <div class="password-input-group">
+            <input
+              type="password"
+              id="passwordInput"
+              class="password-input"
+              placeholder="Type your password here"
+            />
+            <button type="button" class="toggle-password" id="togglePassword">
+              <i class="fas fa-eye"></i>
+            </button>
+          </div>
+
+          <div class="password-strength-meter">
+            <div class="password-strength-fill" id="strengthMeter"></div>
+          </div>
+
+          <div id="passwordFeedback" class="password-feedback"></div>
+
+          <ul class="password-tips" id="passwordTips">
+            <li id="lengthTip">
+              <i class="fas fa-times not-fulfilled"></i> At least 12 characters
+              long
+            </li>
+            <li id="uppercaseTip">
+              <i class="fas fa-times not-fulfilled"></i> Contains uppercase
+              letters (A-Z)
+            </li>
+            <li id="lowercaseTip">
+              <i class="fas fa-times not-fulfilled"></i> Contains lowercase
+              letters (a-z)
+            </li>
+            <li id="numberTip">
+              <i class="fas fa-times not-fulfilled"></i> Contains numbers (0-9)
+            </li>
+            <li id="specialTip">
+              <i class="fas fa-times not-fulfilled"></i> Contains special
+              characters (!@#$%^&*)
+            </li>
+            <li id="commonTip">
+              <i class="fas fa-times not-fulfilled"></i> Not a common password
+            </li>
+          </ul>
+        </div>
+
+        <div class="alert alert-success">
+          <i class="fas fa-lightbulb"></i>
+          <div>
+            <strong>Pro Tip:</strong> A good approach is to use a passphrase
+            (multiple words) with substitutions rather than a single word. For
+            example, "Tr0ub4dor&3" is much stronger than "password123".
+          </div>
+        </div>
+
+        <div class="navigation-buttons">
+          <button
+            class="btn btn-secondary prev-btn"
+            data-prev="section-characteristics"
+          >
+            Previous
+          </button>
+          <button
+            class="btn btn-primary next-btn"
+            data-next="section-generator"
+          >
+            Next: Create Your Password
+          </button>
+        </div>
+      </section>
+
+      <!-- Section 4: Password Creation Guide -->
+      <section id="section-generator">
+        <h2>Create Your Own Strong Password</h2>
+        <p>
+          Follow this guided exercise to create a password that is both strong
+          and memorable. We'll walk you through the process step by step.
+        </p>
+
+        <div class="password-generator">
+          <div class="form-group">
+            <label for="baseWord" class="form-label"
+              >Step 1: Choose a base word or phrase</label
+            >
+            <input
+              type="text"
+              id="baseWord"
+              class="form-control"
+              placeholder="e.g., sunshine"
+            />
+            <small
+              >Choose something meaningful to you but not obvious to
+              others</small
+            >
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Step 2: Select substitutions</label>
+            <div class="form-check">
+              <input
+                type="checkbox"
+                id="capitalizeCheck"
+                class="form-check-input"
+              />
+              <label for="capitalizeCheck">Capitalize some letters</label>
+            </div>
+            <div class="form-check">
+              <input
+                type="checkbox"
+                id="numberCheck"
+                class="form-check-input"
+              />
+              <label for="numberCheck"
+                >Replace letters with similar-looking numbers (e→3, a→4, i→1,
+                etc.)</label
+              >
+            </div>
+            <div class="form-check">
+              <input
+                type="checkbox"
+                id="symbolCheck"
+                class="form-check-input"
+              />
+              <label for="symbolCheck">Add symbols (!, @, #, $, etc.)</label>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="addElements" class="form-label"
+              >Step 3: Add random elements</label
+            >
+            <input
+              type="text"
+              id="addElements"
+              class="form-control"
+              placeholder="e.g., 42XYZ!"
+            />
+            <small
+              >Add numbers, symbols, or letters that are easy for you to
+              remember</small
+            >
+          </div>
+
+          <button
+            type="button"
+            class="btn btn-primary"
+            id="generatePasswordBtn"
+          >
+            Generate Password
+          </button>
+
+          <div class="card" style="margin-top: 1.5rem">
+            <div class="card-title">Your Generated Password:</div>
+            <div class="password-input-group">
+              <input
+                type="text"
+                id="generatedPassword"
+                class="form-control"
+                readonly
+              />
+              <button
+                type="button"
+                class="btn btn-secondary"
+                id="copyPasswordBtn"
+                style="
+                  position: absolute;
+                  right: 10px;
+                  top: 50%;
+                  transform: translateY(-50%);
+                  padding: 0.3rem 0.6rem;
+                "
+              >
+                <i class="fas fa-copy"></i>
+              </button>
+            </div>
+            <div id="generatorFeedback" style="margin-top: 1rem"></div>
+          </div>
+
+          <div class="form-group" style="margin-top: 1.5rem">
+            <label class="form-label">Step 4: Memorization Strategy</label>
+            <p>To remember your new password:</p>
+            <ul>
+              <li>Practice typing it several times</li>
+              <li>Connect it to a mental image or story</li>
+              <li>Use it regularly in the first few days after creation</li>
+            </ul>
+          </div>
+
+          <button
+            type="button"
+            class="btn btn-success btn-block"
+            id="savePasswordBtn"
+          >
+            Save Password (Locally)
+          </button>
+          <small
+            >This password will be saved in your browser's local storage and is
+            not sent anywhere.</small
+          >
+        </div>
+      </section>
+    </main>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        // Navigation
+        document.querySelectorAll(".next-btn").forEach((btn) => {
+          btn.addEventListener("click", () => {
+            const current = btn.closest("section");
+            const nextId = btn.dataset.next;
+            current.classList.remove("active-section");
+            document.getElementById(nextId).classList.add("active-section");
+          });
+        });
+
+        document.querySelectorAll(".prev-btn").forEach((btn) => {
+          btn.addEventListener("click", () => {
+            const current = btn.closest("section");
+            const prevId = btn.dataset.prev;
+            current.classList.remove("active-section");
+            document.getElementById(prevId).classList.add("active-section");
+          });
+        });
+
+        // Password Strength Checker
+        const passwordInput = document.getElementById("passwordInput");
+        const strengthFill = document.getElementById("strengthMeter");
+        const feedback = document.getElementById("passwordFeedback");
+
+        passwordInput.addEventListener("input", () => {
+          const value = passwordInput.value;
+          let score = 0;
+
+          const lengthValid = value.length >= 12;
+          const upper = /[A-Z]/.test(value);
+          const lower = /[a-z]/.test(value);
+          const number = /\d/.test(value);
+          const special = /[!@#$%^&*]/.test(value);
+          const common = ["123456", "password", "qwerty", "abc123"].some((w) =>
+            value.includes(w)
+          );
+
+          // Update checklist
+          updateTip("lengthTip", lengthValid);
+          updateTip("uppercaseTip", upper);
+          updateTip("lowercaseTip", lower);
+          updateTip("numberTip", number);
+          updateTip("specialTip", special);
+          updateTip("commonTip", !common);
+
+          score += lengthValid + upper + lower + number + special;
+          if (common) score = Math.max(score - 2, 0); // penalize common
+
+          // Meter
+          const percent = (score / 5) * 100;
+          strengthFill.style.width = percent + "%";
+          strengthFill.style.backgroundColor =
+            score < 2 ? "#ff5400" : score < 4 ? "#ffbe0b" : "#38b000";
+
+          // Feedback
+          feedback.style.display = "block";
+          feedback.className =
+            "password-feedback " +
+            (score < 2
+              ? "feedback-weak"
+              : score < 4
+              ? "feedback-medium"
+              : "feedback-strong");
+          feedback.textContent =
+            score < 2
+              ? "Weak password"
+              : score < 4
+              ? "Moderate password"
+              : "Strong password";
+        });
+
+        function updateTip(id, valid) {
+          const tip = document.getElementById(id);
+          const icon = tip.querySelector("i");
+          if (valid) {
+            icon.className = "fas fa-check fulfilled";
+            tip.classList.remove("not-fulfilled");
+          } else {
+            icon.className = "fas fa-times not-fulfilled";
+            tip.classList.add("not-fulfilled");
+          }
+        }
+
+        // Password generator
+        document
+          .getElementById("generatePasswordBtn")
+          .addEventListener("click", () => {
+            let base = document.getElementById("baseWord").value.trim();
+            if (!base) {
+              alert("Please enter a base word.");
+              return;
+            }
+            if (document.getElementById("capitalizeCheck").checked)
+              base = base.charAt(0).toUpperCase() + base.slice(1);
+            if (document.getElementById("numberCheck").checked)
+              base = base
+                .replace(/e/g, "3")
+                .replace(/a/g, "4")
+                .replace(/i/g, "1");
+            if (document.getElementById("symbolCheck").checked)
+              base += "!@#"[Math.floor(Math.random() * 3)];
+
+            const extra = document.getElementById("addElements").value;
+            const finalPassword = base + extra;
+            document.getElementById("generatedPassword").value = finalPassword;
+          });
+
+        // Copy password
+        document
+          .getElementById("copyPasswordBtn")
+          .addEventListener("click", () => {
+            const password = document.getElementById("generatedPassword").value;
+            if (!password) {
+              alert("Nothing to copy. Generate a password first.");
+              return;
+            }
+            navigator.clipboard.writeText(password).then(() => {
+              alert("Password copied!");
+            });
+          });
+
+        // Save to localStorage
+        document
+          .getElementById("savePasswordBtn")
+          .addEventListener("click", () => {
+            const password = document.getElementById("generatedPassword").value;
+            localStorage.setItem("savedPassword", password);
+            alert("Password saved locally!");
+          });
+
+        // Toggle password visibility
+        document
+          .getElementById("togglePassword")
+          .addEventListener("click", () => {
+            const input = passwordInput;
+            input.type = input.type === "password" ? "text" : "password";
+          });
+      });
+    </script>
+  </body>
+</html>
